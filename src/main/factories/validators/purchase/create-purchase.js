@@ -8,8 +8,8 @@ const getMandatoryFields = () => [
 ];
 
 const getSchema = () => ({
-    price: value => typeof value === 'string' && value.length <= 50,
     product_id: value => typeof value === 'number',
+    price: value => typeof value === 'number',    
 });
 
 module.exports = () => {
