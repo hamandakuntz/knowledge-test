@@ -34,7 +34,7 @@ const makeSut = () => {
     return {
         sut,
         validationSpy,
-        productPurchaseSpy,
+        purchaseRepositorySpy,
     };
 };
 
@@ -52,7 +52,7 @@ describe('CreatePurchase Controller', () => {
         const { sut, purchaseRepositorySpy } = makeSut();
         const request = mockRequest();
         await sut.handle(request);
-        expect(productPurchaseSpy.params).toEqual(sut.serializeProductsToDb(request.body));
+        expect(purchaseRepositorySpy.params).toEqual(sut.serializePurchasesToDb(request.body));
     });
 
     it('should call Validation with correct value', async () => {

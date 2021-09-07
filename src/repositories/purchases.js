@@ -20,7 +20,7 @@ module.exports = class PurchasesRepository {
     async create(purchases) {
         const sql = `
             INSERT INTO 
-                purchases_orders (product_id, price) 
+                purchase_orders (product_id, price) 
             VALUES 
                 (?, ?);
         `;

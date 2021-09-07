@@ -13,15 +13,16 @@ module.exports = class CreatePurchaseController {
                 return badRequest(errors);
             }
 
-            const serializedPurchase = this.serializePurchaseToDb(request.body);
+            const serializedPurchase = this.serializePurchasesToDb(request.body);
             await this.repository.create(serializedPurchase);
             return created(request.body);
         } catch (error) {
+            console.log(error);
             return serverError(error);
         }
     }
 
-    serializeProductsToDb(purchases) {
+    serializePurchasesToDb(purchases) {
         purchases = Array.isArray(purchases) ? purchases : [purchases];
 
         return purchases.map(purchase => ([

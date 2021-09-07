@@ -6,5 +6,5 @@ module.exports = () => {
     const repository = new PurchasesRepository();
     const validators = makeCreatePurchaseValidators();
 
-    return new CreatePurchaseController(repository);
+    return new CreatePurchaseController(repository, validators);
 };
