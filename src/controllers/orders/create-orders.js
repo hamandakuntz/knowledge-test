@@ -1,6 +1,6 @@
 const { serverError, badRequest, created } = require('../../utils/http/http-helper');
 
-module.exports = class CreatePurchaseController {
+module.exports = class CreateOrderController {
     constructor(repository, validation) {
         this.repository = repository;
         this.validation = validation;
@@ -13,8 +13,8 @@ module.exports = class CreatePurchaseController {
                 return badRequest(errors);
             }
 
-            const serializedPurchase = this.serializePurchasesToDb(request.body);
-            await this.repository.create(serializedPurchase);
+            const serializedOrder = this.serializeOrdersToDb(request.body);
+            await this.repository.create(serializedOrder);
             return created(request.body);
         } catch (error) {
             console.log(error);
@@ -22,12 +22,12 @@ module.exports = class CreatePurchaseController {
         }
     }
 
-    serializePurchasesToDb(purchases) {
-        purchases = Array.isArray(purchases) ? purchases : [purchases];
+    serializeOrdersToDb(orders) {
+        orders = Array.isArray(orders) ? orders : [orders];
 
-        return purchases.map(purchase => ([
-            purchase.product_id,
-            purchase.price,           
+        return orders.map(order => ([
+            order.product_id,
+            order.price,           
         ]));
     }
 };

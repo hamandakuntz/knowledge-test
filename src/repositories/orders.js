@@ -2,7 +2,7 @@ const makeDbInstance = require('../main/factories/db');
 
 const db = makeDbInstance();
 
-module.exports = class PurchasesRepository {
+module.exports = class OrdersRepository {
     async findAll() {
         const sql = `
             SELECT purchase_orders.*, products.*, suppliers.*
@@ -12,12 +12,12 @@ module.exports = class PurchasesRepository {
             JOIN suppliers
             ON products.supplier_id = suppliers.id                     
         `;
-        const purchases = await db.select(sql);
+        const orders = await db.select(sql);
 
-        return purchases;
-    }
+        return orders;
+    }   
 
-    async create(purchases) {
+    async create(orders) {
         const sql = `
             INSERT INTO 
                 purchase_orders (product_id, price) 
@@ -25,6 +25,6 @@ module.exports = class PurchasesRepository {
                 (?, ?);
         `;
 
-        return db.persistMany(sql, purchases);
+        return db.persistMany(sql, orders);
     }
 };
