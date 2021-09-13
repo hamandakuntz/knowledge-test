@@ -1,4 +1,4 @@
-const { serverError, noContent } = require('../../utils/http/http-helper');
+const { serverError, noContent, badRequest } = require('../../utils/http/http-helper');
 
 module.exports = class DeleteOrderByIdController {
     constructor(repository, validation) {
