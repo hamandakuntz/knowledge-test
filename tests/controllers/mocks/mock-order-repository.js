@@ -1,4 +1,4 @@
-module.exports = class PurchaseRepositorySpy {
+module.exports = class OrderRepositorySpy {
     constructor() {
         this.result = 0;
     }

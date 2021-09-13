@@ -1,58 +1,58 @@
 const faker = require('faker');
 
-const CreatePurchaseController = require('../../../src/controllers/purchases/create-purchases');
+const CreateOrderController = require('../../../src/controllers/orders/create-orders');
 const ServerError = require('../../../src/utils/errors/server');
 const MissingParamError = require('../../../src/utils/errors/missing-param');
 const { badRequest, serverError, created } = require('../../../src/utils/http/http-helper');
 const ValidationSpy = require('../mocks/mock-validation');
-const PurchaseRepositorySpy = require('../mocks/mock-purchase-repository');
+const OrderRepositorySpy = require('../mocks/mock-order-repository');
 
-const mockPurchase = () => ({
+const mockOrder = () => ({
     product_id: 'valid_product_id',
     price: 'valid_price',
 });
 
 const mockRequest = () => {
     return {
-        body: mockPurchase(),
+        body: mockOrder(),
     };
 };
 
 const mockArrayRequest = () => {
     return {
         body: [
-            mockPurchase(),
-            mockPurchase(),
+            mockOrder(),
+            mockOrder(),
         ]
     };
 };
 
 const makeSut = () => {
     const validationSpy = new ValidationSpy();
-    const purchaseRepositorySpy = new PurchaseRepositorySpy();
-    const sut = new CreatePurchaseController(purchaseRepositorySpy, validationSpy);
+    const orderRepositorySpy = new OrderRepositorySpy();
+    const sut = new CreateOrderController(orderRepositorySpy, validationSpy);
     return {
         sut,
         validationSpy,
-        purchaseRepositorySpy,
+        orderRepositorySpy,
     };
 };
 
-describe('CreatePurchase Controller', () => {
-    it('should return 500 if PurchaseRepository create() throws', async () => {
-        const { sut, purchaseRepositorySpy } = makeSut();
-        jest.spyOn(purchaseRepositorySpy, 'create').mockImplementationOnce(() => {
+describe('CreateOrder Controller', () => {
+    it('should return 500 if OrderRepository create() throws', async () => {
+        const { sut, orderRepositorySpy } = makeSut();
+        jest.spyOn(orderRepositorySpy, 'create').mockImplementationOnce(() => {
             throw new Error();
         });
         const httpResponse = await sut.handle(mockRequest());
         expect(httpResponse).toEqual(serverError(new ServerError(null)));
     });
 
-    it('should call PurchaseRepository create() with correct values', async () => {
-        const { sut, purchaseRepositorySpy } = makeSut();
+    it('should call OrderRepository create() with correct values', async () => {
+        const { sut, orderRepositorySpy } = makeSut();
         const request = mockRequest();
         await sut.handle(request);
-        expect(purchaseRepositorySpy.params).toEqual(sut.serializePurchasesToDb(request.body));
+        expect(orderRepositorySpy.params).toEqual(sut.serializeOrdersToDb(request.body));
     });
 
     it('should call Validation with correct value', async () => {

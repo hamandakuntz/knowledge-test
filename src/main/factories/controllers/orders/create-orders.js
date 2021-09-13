@@ -2,7 +2,7 @@ const OrdersRepository = require('../../../../repositories/orders');
 const CreateOrderController = require('../../../../controllers/orders/create-orders');
 const makeCreateOrderValidators = require('../../validators/orders/create-order');
 
-module.exports = () => {
+module.exports = (req) => {
     const repository = new OrdersRepository();
     const validators = makeCreateOrderValidators();
 

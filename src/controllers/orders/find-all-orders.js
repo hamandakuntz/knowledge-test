@@ -8,7 +8,7 @@ module.exports = class FindAllOrdersController {
     async handle() {
         try {
             const orders = await this.repository.findAll();
-            return success({ orders });
+            return success(orders);
         } catch (error) {
             return serverError(error);
         }

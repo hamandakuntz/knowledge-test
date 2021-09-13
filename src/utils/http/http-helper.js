@@ -7,6 +7,13 @@ const badRequest = (errors) => ({
     }
 });
 
+const notFound = (errors) => ({
+    statusCode: 404,
+    body: {
+        errors,
+    }
+});
+
 const serverError = (error) => ({
     statusCode: 500,
     body: {
@@ -37,4 +44,5 @@ module.exports = {
     serverError,
     success,
     noContent,
+    notFound,
 };

@@ -1,4 +1,4 @@
-const PurchasesRepository = require('../../src/repositories/purchases');
+const OrdersRepository = require('../../src/repositories/orders');
 
 jest.mock('../../src/main/factories/db', () => {
     return () => ({
@@ -13,10 +13,10 @@ const mockCreateProductParams = () => ([[
 ]]);
 
 const makeSut = () => {
-    return new PurchasesRepository();
+    return new OrdersRepository();
 };
 
-describe('PurchasesRepository', () => {
+describe('OrdersRepository', () => {
     describe('create()', () => {
         it('should return inserted rows length on success', async () => {
             const sut = makeSut();
@@ -27,10 +27,10 @@ describe('PurchasesRepository', () => {
     });
 
     describe('findAll()', () => {
-        it('should return purchases list with data of the purchase, product and supplier', async () => {
+        it('should return orders list with data of the order, product and supplier', async () => {
             const sut = makeSut();
-            const purchases = await sut.findAll();
-            expect(purchases).toEqual([]);
+            const orders = await sut.findAll();
+            expect(orders).toEqual([]);
         });
     });
 });
